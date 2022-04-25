@@ -10,6 +10,8 @@ jobs:
     env:
       POLARIS_SERVER_URL:  ${{ secrets.POLARIS_SERVER_URL }}
       POLARIS_ACCESS_TOKEN:  ${{ secrets.POLARIS_ACCESS_TOKEN }}
+      BLACKDUCK_URL:  ${{ secrets.BLACKDUCK_URL }}
+      BLACKDUCK_ACCESS_TOKEN:  ${{ secrets.BLACKDUCK_ACCESS_TOKEN }}
       VERBOSE: 1
       GOFLAGS: -mod=readonly
 
@@ -28,3 +30,11 @@ jobs:
           unzip -d /tmp -jo polaris_cli-linux64.zip
           /tmp/polaris analyze -w
           ls /home/runner/.synopsys/polaris/coverity-tools-linux64-2021.12.1/bin
+          
+      - name: Black Duck (SCA)
+        run: |
+          bash <(curl -s -L https://detect.synopsys.com/detect7.sh) '--blackduck.url=$BLACKDUCK_URL \
+             --blackduck.api.token=$BLACKDUCK_API_TOKEN \
+             --detect.project.name=$GITHUB_REPOSITORY \
+             --detect.project.version.name=$GITHUB_REF_NAME \
+             --detect.blackduck.signature.scanner.snippet.matching=SNIPPET_MATCHING'
