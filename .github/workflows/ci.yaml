@@ -8,6 +8,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
+      POLARIS_SERVER_URL:  ${{ secrets.POLARIS_SERVER_URL }}
+      POLARIS_ACCESS_TOKEN:  ${{ secrets.POLARIS_ACCESS_TOKEN }}
       VERBOSE: 1
       GOFLAGS: -mod=readonly
 
@@ -22,7 +24,6 @@ jobs:
 
       - name: Build
         run: |
-          echo "${{ github.GITHUB_REPOSITORY }}-server"
-          curl "https://demo.polaris.synopsys.com/api/tools/polaris_cli-linux64.zip"
+          curl -fLOsS $POLARIS_SERVER_URL/api/tools/polaris_cli-linux64.zip
           unzip -d /tmp -jo polaris_cli-linux64.zip
           /tmp/polaris analyze -w -- make build
