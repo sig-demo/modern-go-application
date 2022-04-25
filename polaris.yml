@@ -9,6 +9,9 @@ capture:
   build:
     buildCommands:
     - shell: [make, build]
+    coverity:
+      skipFiles:
+      - .*/pkg/.* 
   fileSystem:
     ears:
       extensions: [ear]
