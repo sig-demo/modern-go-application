@@ -22,6 +22,6 @@ jobs:
 
       - name: Build
         run: |
-          curl -fLOsS $POLARIS_SERVER_URL/api/tools/polaris_cli-linux64.zip
+          curl -fLOsS https://demo.polaris.synopsys.com/api/tools/polaris_cli-linux64.zip
           unzip -d /tmp -jo polaris_cli-linux64.zip
           /tmp/polaris analyze -w -- make build
