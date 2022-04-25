@@ -9,10 +9,7 @@ capture:
   build:
     buildCommands:
     - shell: [make, build]
-    - shell: [./home/runner/.synopsys/polaris/coverity-tools-linux64-2021.12.1/bin/cov-manage-emit, --dir, .synopsys\polaris\data\coverity\2021.12.1\idir, --tu-pattern, "file('/pkg/')", delete]
-    coverity:
-      skipFiles:
-      - .*/pkg/.* 
+    - shell: [/home/runner/.synopsys/polaris/coverity-tools-linux64-2021.12.1/bin/cov-manage-emit, --dir, .synopsys\polaris\data\coverity\2021.12.1\idir, --tu-pattern, "file('/pkg/')", delete]
   fileSystem:
     ears:
       extensions: [ear]
